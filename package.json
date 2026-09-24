@@ -1,0 +1,25 @@
+{
+  "name": "vlits-college-knowledge-platform",
+  "version": "1.0.0",
+  "description": "Digital Knowledge Memory & Collaboration Platform for Vignan's Lara Institute of Technology & Science",
+  "scripts": {
+    "install:all": "cd backend && npm install && cd ../frontend && npm install",
+    "build": "cd frontend && npm install && node ./node_modules/vite/bin/vite.js build",
+    "start": "cd backend && node server.js",
+    "server": "cd backend && node server.js",
+    "client": "cd frontend && node ./node_modules/vite/bin/vite.js"
+  },
+  "keywords": [
+    "knowledge-discovery",
+    "college-platform",
+    "knowledge-graph",
+    "react",
+    "tailwind-css",
+    "express",
+    "mongodb-atlas",
+    "jwt",
+    "glassmorphism"
+  ],
+  "author": "Gowri Simhadri",
+  "license": "MIT"
+}
