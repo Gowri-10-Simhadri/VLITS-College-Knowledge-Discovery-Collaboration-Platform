@@ -21,9 +21,12 @@ export const protect = async (req, res, next) => {
         role: user.role,
         batch: user.batch,
         branch: user.branch,
+        department: user.department,
+        headline: user.headline,
+        bio: user.bio,
         avatar: user.avatar,
         skills: user.skills,
-        bookmarks: user.bookmarks
+        bookmarks: user.bookmarks || []
       };
       
       return next();
