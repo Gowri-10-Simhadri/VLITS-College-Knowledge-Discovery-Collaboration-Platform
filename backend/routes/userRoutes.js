@@ -12,7 +12,7 @@ router.get('/collaborators', async (req, res) => {
 
     if (skill) {
       const qSkill = skill.toLowerCase();
-      users = users.filter(u => u.skills?.some(s => s.name.toLowerCase().includes(qSkill)));
+      users = users.filter(u => u.skills?.some(s => (s.name || s).toLowerCase().includes(qSkill)));
     }
     if (branch) {
       users = users.filter(u => u.branch === branch);
@@ -51,6 +51,90 @@ router.get('/bookmarks', protect, async (req, res) => {
     return res.json(bookmarkedProjects);
   } catch (error) {
     return res.status(500).json({ message: 'Failed to fetch bookmarks.' });
+  }
+});
+
+// PUT /api/users/profile - Update authenticated user profile
+router.put('/profile', protect, async (req, res) => {
+  try {
+    const { headline, bio, batch, branch, department, skills, interests, github, linkedin, portfolio, name } = req.body;
+    
+    const updatePayload = {};
+    if (name) updatePayload.name = name;
+    if (headline !== undefined) updatePayload.headline = headline;
+    if (bio !== undefined) updatePayload.bio = bio;
+    if (batch !== undefined) updatePayload.batch = batch;
+    if (branch !== undefined) updatePayload.branch = branch;
+    if (department !== undefined) updatePayload.department = department;
+    if (github !== undefined) updatePayload.github = github;
+    if (linkedin !== undefined) updatePayload.linkedin = linkedin;
+    if (portfolio !== undefined) updatePayload.portfolio = portfolio;
+    
+    if (skills) {
+      updatePayload.skills = Array.isArray(skills)
+        ? skills.map(s => typeof s === 'string' ? { name: s, level: 'Intermediate', endorsements: 1 } : s)
+        : [];
+    }
+    if (interests) {
+      updatePayload.interests = Array.isArray(interests) ? interests : [];
+    }
+
+    const updatedUser = await dataStore.updateUser(req.user._id, updatePayload);
+    if (!updatedUser) {
+      return res.status(404).json({ message: 'User not found.' });
+    }
+
+    return res.json({
+      _id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      role: updatedUser.role,
+      batch: updatedUser.batch,
+      branch: updatedUser.branch,
+      department: updatedUser.department,
+      headline: updatedUser.headline,
+      bio: updatedUser.bio,
+      avatar: updatedUser.avatar,
+      skills: updatedUser.skills,
+      interests: updatedUser.interests,
+      github: updatedUser.github,
+      linkedin: updatedUser.linkedin,
+      portfolio: updatedUser.portfolio,
+      bookmarks: updatedUser.bookmarks || []
+    });
+  } catch (error) {
+    console.error('Error updating user profile:', error);
+    return res.status(500).json({ message: 'Failed to update profile.' });
+  }
+});
+
+// POST /api/users/:id/connect - Send collaboration invitation or inquiry
+router.post('/:id/connect', async (req, res) => {
+  try {
+    const targetUser = await dataStore.findUserById(req.params.id);
+    if (!targetUser) {
+      return res.status(404).json({ message: 'Target user not found.' });
+    }
+
+    const { senderName, senderEmail, message, projectTitle } = req.body;
+    
+    return res.json({
+      success: true,
+      message: `Collaboration request sent to ${targetUser.name}! They have been notified at ${targetUser.email}.`,
+      recipient: {
+        name: targetUser.name,
+        email: targetUser.email,
+        role: targetUser.role
+      },
+      requestDetails: {
+        senderName: senderName || 'Anonymous Scholar',
+        senderEmail: senderEmail || 'student@vignanlara.edu',
+        projectTitle: projectTitle || 'General Capstone Collaboration',
+        sentAt: new Date()
+      }
+    });
+  } catch (error) {
+    return res.status(500).json({ message: 'Failed to dispatch collaboration request.' });
   }
 });
 

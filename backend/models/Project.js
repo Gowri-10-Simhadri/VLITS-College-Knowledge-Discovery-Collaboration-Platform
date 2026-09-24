@@ -26,20 +26,6 @@ const projectSchema = new mongoose.Schema({
   domain: { 
     type: String, 
     required: true,
-    enum: [
-      'Artificial Intelligence & ML',
-      'Computer Vision & Image Processing',
-      'Natural Language Processing',
-      'Internet of Things & Embedded',
-      'Web & Mobile App Development',
-      'Cyber Security & Cryptography',
-      'Blockchain & Web3',
-      'Data Science & Big Data',
-      'Cloud & DevOps',
-      'Smart Agriculture & Environment',
-      'Healthcare & Biomedical',
-      'Robotics & Automation'
-    ],
     index: true 
   },
   year: { type: Number, required: true, default: 2024, index: true },

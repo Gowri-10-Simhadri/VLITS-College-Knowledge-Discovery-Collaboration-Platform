@@ -6,6 +6,7 @@ import {
   GraduationCap, Sparkles, Eye, Share2, ArrowLeft, Send,
   Layers, Code, ShieldCheck, ChevronRight
 } from 'lucide-react';
+import confetti from 'canvas-confetti';
 import ProjectCard from '../components/ProjectCard';
 import { api } from '../api/client';
 import { useAuthStore } from '../store/useAuthStore';
@@ -28,6 +29,12 @@ export default function ProjectDetail({ onOpenAuthModal }) {
   const [reviewSubmitting, setReviewSubmitting] = useState(false);
   const [reviewSuccess, setReviewSuccess] = useState(false);
 
+  // Citation & Share Modal State
+  const [citationOpen, setCitationOpen] = useState(false);
+  const [citationFormat, setCitationFormat] = useState('bibtex'); // 'bibtex' | 'ieee' | 'apa'
+  const [copiedCitation, setCopiedCitation] = useState(false);
+  const [shareCopied, setShareCopied] = useState(false);
+
   useEffect(() => {
     async function loadProject() {
       setLoading(true);
@@ -46,6 +53,50 @@ export default function ProjectDetail({ onOpenAuthModal }) {
     window.scrollTo(0, 0);
   }, [id]);
 
+  const handleShare = async () => {
+    const url = window.location.href;
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: `${project?.title} - Vignan's Lara College Knowledge`,
+          text: `Check out this capstone project on Vignan's Lara College Knowledge Discovery Platform!`,
+          url
+        });
+        return;
+      } catch (e) {}
+    }
+    navigator.clipboard.writeText(url);
+    setShareCopied(true);
+    setTimeout(() => setShareCopied(false), 2500);
+  };
+
+  const getCitationText = () => {
+    if (!project) return '';
+    const authorNames = project.teamMembers?.map(m => m.name).join(' and ') || 'Vignan Lara Student Team';
+    const year = project.year || 2024;
+    
+    if (citationFormat === 'bibtex') {
+      return `@inproceedings{vlits_${project._id},
+  title={${project.title}},
+  author={${authorNames}},
+  booktitle={Vignan's Lara Institute of Technology & Science Capstone Proceedings},
+  year={${year}},
+  note={Supervised by ${project.facultySupervisor?.name || 'VLITS Faculty'}},
+  url={${window.location.href}}
+}`;
+    } else if (citationFormat === 'ieee') {
+      return `${authorNames}, "${project.title}," Vignan's Lara Institute of Technology & Science Capstone Archives, ${year}. [Online]. Available: ${window.location.href}.`;
+    } else {
+      return `${authorNames} (${year}). ${project.title}. Vignan's Lara Institute of Technology & Science Knowledge Discovery Platform. ${window.location.href}`;
+    }
+  };
+
+  const copyCitation = () => {
+    navigator.clipboard.writeText(getCitationText());
+    setCopiedCitation(true);
+    setTimeout(() => setCopiedCitation(false), 2500);
+  };
+
   const handleReviewSubmit = async (e) => {
     e.preventDefault();
     if (!user) {
@@ -63,6 +114,7 @@ export default function ProjectDetail({ onOpenAuthModal }) {
       setProject(res.data);
       setCommentInput('');
       setReviewSuccess(true);
+      confetti({ particleCount: 40, spread: 60, origin: { y: 0.7 } });
       setTimeout(() => setReviewSuccess(false), 4000);
     } catch (err) {
       alert('Failed to submit review.');
@@ -175,6 +227,27 @@ export default function ProjectDetail({ onOpenAuthModal }) {
               title="Add to Compare Matrix"
             >
               <GitCompare className="w-4 h-4" />
+            </button>
+
+            <button
+              onClick={handleShare}
+              className="p-2.5 rounded-xl glass-card text-slate-300 hover:text-emerald-400 border-white/10 relative"
+              title="Share Project"
+            >
+              <Share2 className="w-4 h-4" />
+              {shareCopied && (
+                <span className="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded bg-emerald-500 text-white text-[10px] whitespace-nowrap shadow-lg animate-bounce">
+                  Link Copied!
+                </span>
+              )}
+            </button>
+
+            <button
+              onClick={() => setCitationOpen(true)}
+              className="p-2.5 rounded-xl glass-card text-slate-300 hover:text-purple-400 border-white/10"
+              title="Cite Capstone Research"
+            >
+              <FileText className="w-4 h-4" />
             </button>
           </div>
         </div>
@@ -531,6 +604,64 @@ export default function ProjectDetail({ onOpenAuthModal }) {
         </section>
       )}
 
+      {/* Citation Modal */}
+      {citationOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-dark-950/80 backdrop-blur-md animate-in fade-in">
+          <div className="relative w-full max-w-lg glass-panel rounded-2xl border border-white/15 p-6 shadow-2xl">
+            <button
+              onClick={() => setCitationOpen(false)}
+              className="absolute top-4 right-4 p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white"
+            >
+              ✕
+            </button>
+
+            <div className="flex items-center gap-2 mb-4">
+              <FileText className="w-5 h-5 text-cyan-400" />
+              <h3 className="text-base font-bold text-white">Cite this Capstone Project</h3>
+            </div>
+
+            {/* Format Tabs */}
+            <div className="flex rounded-xl bg-white/[0.04] p-1 border border-white/10 mb-4">
+              {['bibtex', 'ieee', 'apa'].map(fmt => (
+                <button
+                  key={fmt}
+                  onClick={() => setCitationFormat(fmt)}
+                  className={`flex-1 py-1.5 text-xs font-bold uppercase rounded-lg transition-all ${
+                    citationFormat === fmt
+                      ? 'bg-gradient-to-r from-primary-600 to-cyan-600 text-white shadow-md'
+                      : 'text-slate-400 hover:text-white'
+                  }`}
+                >
+                  {fmt}
+                </button>
+              ))}
+            </div>
+
+            {/* Citation Box */}
+            <pre className="p-4 rounded-xl bg-dark-950 border border-white/10 text-[11px] text-slate-300 font-mono overflow-x-auto whitespace-pre-wrap leading-relaxed max-h-48 select-all">
+              {getCitationText()}
+            </pre>
+
+            <div className="flex justify-end gap-2 mt-4 pt-3 border-t border-white/10">
+              <button
+                type="button"
+                onClick={() => setCitationOpen(false)}
+                className="btn-glass !py-2 !px-4 text-xs"
+              >
+                Close
+              </button>
+              <button
+                onClick={copyCitation}
+                className="btn-gradient !py-2 !px-5 text-xs font-bold flex items-center gap-1.5"
+              >
+                <span>{copiedCitation ? '✓ Copied to Clipboard!' : 'Copy Citation'}</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
     </div>
   );
 }
+

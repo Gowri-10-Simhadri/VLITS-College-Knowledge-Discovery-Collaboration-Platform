@@ -393,6 +393,30 @@ export const dataStore = {
     return newUser;
   },
 
+  // Update User Profile
+  updateUser: async (userId, updateFields) => {
+    const { isConnected } = getDbStatus();
+    if (isConnected) {
+      try {
+        const updated = await User.findByIdAndUpdate(
+          userId,
+          { $set: updateFields },
+          { new: true }
+        );
+        if (updated) return updated.toObject();
+      } catch (err) {
+        console.error('Failed to update user in Atlas:', err.message);
+      }
+    }
+
+    const idx = inMemoryUsers.findIndex(u => u._id === userId);
+    if (idx !== -1) {
+      inMemoryUsers[idx] = { ...inMemoryUsers[idx], ...updateFields };
+      return inMemoryUsers[idx];
+    }
+    return null;
+  },
+
   // Get Users (for collaborator discovery)
   getUsers: async () => {
     const { isConnected } = getDbStatus();
