@@ -3,7 +3,8 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { 
   Search, Bookmark, Heart, GitCompare, Network, PlusCircle, 
   User as UserIcon, Sparkles, GraduationCap, Menu, X, ArrowRight,
-  TrendingUp, Layers, Compass, LogOut, CheckCircle
+  TrendingUp, Layers, Compass, LogOut, CheckCircle, FolderGit2,
+  Cpu, BookOpen, Database, Bell, ShieldCheck
 } from 'lucide-react';
 import { useAuthStore } from '../store/useAuthStore';
 import { useCompareStore } from '../store/useCompareStore';
@@ -20,7 +21,20 @@ export default function Navbar({ onOpenAuthModal }) {
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [userDropdownOpen, setUserDropdownOpen] = useState(false);
+  const [unreadNotifications, setUnreadNotifications] = useState(0);
   const searchContainerRef = useRef(null);
+
+  // Fetch unread notifications count
+  useEffect(() => {
+    if (user) {
+      api.get('/collaborations/my')
+        .then(res => {
+          const pending = res.data?.incoming?.filter(r => r.status === 'pending')?.length || 0;
+          setUnreadNotifications(pending);
+        })
+        .catch(() => {});
+    }
+  }, [user, location.pathname]);
 
   // Fetch quick suggestions
   useEffect(() => {
@@ -28,7 +42,7 @@ export default function Navbar({ onOpenAuthModal }) {
       const timer = setTimeout(async () => {
         try {
           const res = await api.get(`/search/suggestions?q=${encodeURIComponent(query)}`);
-          setSuggestions(res.data);
+          setSuggestions(res.data || []);
           setShowSuggestions(true);
         } catch (e) {}
       }, 200);
@@ -98,7 +112,7 @@ export default function Navbar({ onOpenAuthModal }) {
         </Link>
 
         {/* Global Smart Search Bar (Amazon / Flipkart Style) */}
-        <div ref={searchContainerRef} className="flex-1 max-w-2xl relative">
+        <div ref={searchContainerRef} className="flex-1 max-w-xl relative hidden md:block">
           <form onSubmit={handleSearchSubmit} className="relative flex items-center">
             <div className="absolute left-3.5 text-slate-400 pointer-events-none">
               <Search className="w-4 h-4 text-cyan-400" />
@@ -144,32 +158,72 @@ export default function Navbar({ onOpenAuthModal }) {
         </div>
 
         {/* Desktop Nav Links & Actions */}
-        <nav className="hidden lg:flex items-center gap-5 text-sm font-medium text-slate-300">
+        <nav className="hidden lg:flex items-center gap-4 text-xs font-semibold text-slate-300">
           <Link 
             to="/discover" 
-            className={`flex items-center gap-1.5 hover:text-white transition-colors ${location.pathname === '/discover' ? 'text-cyan-400 font-semibold' : ''}`}
+            className={`flex items-center gap-1 hover:text-white transition-colors ${location.pathname === '/discover' ? 'text-cyan-400' : ''}`}
           >
-            <Compass className="w-4 h-4" />
+            <Compass className="w-3.5 h-3.5" />
             <span>Discover</span>
           </Link>
 
           <Link 
-            to="/graph" 
-            className={`flex items-center gap-1.5 hover:text-white transition-colors ${location.pathname === '/graph' ? 'text-cyan-400 font-semibold' : ''}`}
+            to="/projects" 
+            className={`flex items-center gap-1 hover:text-white transition-colors ${location.pathname === '/projects' ? 'text-cyan-400' : ''}`}
           >
-            <Network className="w-4 h-4 text-purple-400" />
-            <span>Knowledge Graph</span>
+            <FolderGit2 className="w-3.5 h-3.5 text-cyan-400" />
+            <span>Projects</span>
+          </Link>
+
+          <Link 
+            to="/graph" 
+            className={`flex items-center gap-1 hover:text-white transition-colors ${location.pathname === '/graph' ? 'text-cyan-400' : ''}`}
+          >
+            <Network className="w-3.5 h-3.5 text-purple-400" />
+            <span>Graph</span>
+          </Link>
+
+          <Link 
+            to="/skills" 
+            className={`flex items-center gap-1 hover:text-white transition-colors ${location.pathname === '/skills' ? 'text-emerald-400' : ''}`}
+          >
+            <Cpu className="w-3.5 h-3.5 text-emerald-400" />
+            <span>Skills</span>
+          </Link>
+
+          <Link 
+            to="/research" 
+            className={`flex items-center gap-1 hover:text-white transition-colors ${location.pathname === '/research' ? 'text-purple-400' : ''}`}
+          >
+            <BookOpen className="w-3.5 h-3.5 text-purple-400" />
+            <span>Research</span>
+          </Link>
+
+          <Link 
+            to="/resources" 
+            className={`flex items-center gap-1 hover:text-white transition-colors ${location.pathname === '/resources' ? 'text-rose-400' : ''}`}
+          >
+            <Database className="w-3.5 h-3.5 text-rose-400" />
+            <span>Datasets</span>
+          </Link>
+
+          <Link 
+            to="/faculty" 
+            className={`flex items-center gap-1 hover:text-white transition-colors ${location.pathname === '/faculty' ? 'text-amber-400' : ''}`}
+          >
+            <GraduationCap className="w-3.5 h-3.5 text-amber-400" />
+            <span>Faculty</span>
           </Link>
 
           <Link 
             to="/collaborators" 
-            className={`flex items-center gap-1.5 hover:text-white transition-colors ${location.pathname === '/collaborators' ? 'text-cyan-400 font-semibold' : ''}`}
+            className={`flex items-center gap-1 hover:text-white transition-colors ${location.pathname === '/collaborators' ? 'text-cyan-400' : ''}`}
           >
-            <GraduationCap className="w-4 h-4 text-emerald-400" />
-            <span>Students & Faculty</span>
+            <UserIcon className="w-3.5 h-3.5 text-cyan-400" />
+            <span>Students</span>
           </Link>
 
-          {/* Compare Pill (Amazon style) */}
+          {/* Compare Pill */}
           {compareList.length > 0 && (
             <Link
               to="/compare"
@@ -179,6 +233,20 @@ export default function Navbar({ onOpenAuthModal }) {
               <span>Compare ({compareList.length})</span>
             </Link>
           )}
+
+          {/* Notifications / Collaboration Inbox */}
+          <Link
+            to="/notifications"
+            title="Collaboration Requests"
+            className="relative p-2 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 text-slate-300 hover:text-cyan-300 transition-all"
+          >
+            <Bell className="w-4 h-4" />
+            {unreadNotifications > 0 && (
+              <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-cyan-500 text-dark-950 text-[10px] font-black flex items-center justify-center animate-bounce">
+                {unreadNotifications}
+              </span>
+            )}
+          </Link>
 
           {/* Bookmarks / Wishlist */}
           <Link
@@ -197,10 +265,10 @@ export default function Navbar({ onOpenAuthModal }) {
           {/* Submit Capstone Button */}
           <Link
             to="/submit"
-            className="btn-gradient text-xs !py-2 !px-3.5"
+            className="btn-gradient text-xs !py-1.5 !px-3"
           >
-            <PlusCircle className="w-4 h-4" />
-            <span>Publish Work</span>
+            <PlusCircle className="w-3.5 h-3.5" />
+            <span>Publish</span>
           </Link>
 
           {/* User Auth Profile / Login */}
@@ -215,7 +283,7 @@ export default function Navbar({ onOpenAuthModal }) {
                   alt={user.name}
                   className="w-7 h-7 rounded-lg bg-slate-800 object-cover"
                 />
-                <span className="text-xs font-semibold text-white max-w-[100px] truncate">{user.name}</span>
+                <span className="text-xs font-semibold text-white max-w-[80px] truncate">{user.name}</span>
               </button>
 
               {userDropdownOpen && (
@@ -233,6 +301,14 @@ export default function Navbar({ onOpenAuthModal }) {
                     <span>My College Portfolio</span>
                   </Link>
                   <Link
+                    to="/notifications"
+                    onClick={() => setUserDropdownOpen(false)}
+                    className="flex items-center gap-2 px-3 py-2 text-xs text-slate-300 hover:text-white hover:bg-white/10"
+                  >
+                    <Bell className="w-4 h-4 text-amber-400" />
+                    <span>Collaboration Invites ({unreadNotifications})</span>
+                  </Link>
+                  <Link
                     to="/bookmarks"
                     onClick={() => setUserDropdownOpen(false)}
                     className="flex items-center gap-2 px-3 py-2 text-xs text-slate-300 hover:text-white hover:bg-white/10"
@@ -240,6 +316,16 @@ export default function Navbar({ onOpenAuthModal }) {
                     <Heart className="w-4 h-4 text-rose-400" />
                     <span>Saved Capstones ({user.bookmarks?.length || 0})</span>
                   </Link>
+                  {user.role === 'admin' && (
+                    <Link
+                      to="/admin"
+                      onClick={() => setUserDropdownOpen(false)}
+                      className="flex items-center gap-2 px-3 py-2 text-xs text-emerald-300 hover:text-white hover:bg-emerald-500/10"
+                    >
+                      <ShieldCheck className="w-4 h-4 text-emerald-400" />
+                      <span>Admin Control Center</span>
+                    </Link>
+                  )}
                   <button
                     onClick={() => {
                       logout();
@@ -256,10 +342,10 @@ export default function Navbar({ onOpenAuthModal }) {
           ) : (
             <button
               onClick={onOpenAuthModal}
-              className="btn-glass text-xs !py-2 !px-3.5 !text-cyan-300 border-cyan-500/30 hover:border-cyan-400/50"
+              className="btn-glass text-xs !py-1.5 !px-3 !text-cyan-300 border-cyan-500/30 hover:border-cyan-400/50"
             >
               <UserIcon className="w-3.5 h-3.5 text-cyan-400" />
-              <span>Sign In / Demo</span>
+              <span>Sign In</span>
             </button>
           )}
         </nav>
@@ -285,7 +371,7 @@ export default function Navbar({ onOpenAuthModal }) {
 
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div className="lg:hidden border-t border-white/10 bg-dark-900/95 backdrop-blur-2xl px-4 py-4 space-y-3 animate-in slide-in-from-top duration-200">
+        <div className="lg:hidden border-t border-white/10 bg-dark-900/95 backdrop-blur-2xl px-4 py-4 space-y-2 animate-in slide-in-from-top duration-200 max-h-[85vh] overflow-y-auto">
           <Link
             to="/discover"
             onClick={() => setMobileMenuOpen(false)}
@@ -295,28 +381,86 @@ export default function Navbar({ onOpenAuthModal }) {
             <span>Discover Knowledge</span>
           </Link>
           <Link
+            to="/projects"
+            onClick={() => setMobileMenuOpen(false)}
+            className="flex items-center gap-3 p-2.5 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] text-sm font-medium"
+          >
+            <FolderGit2 className="w-4 h-4 text-cyan-400" />
+            <span>Capstone Projects</span>
+          </Link>
+          <Link
             to="/graph"
             onClick={() => setMobileMenuOpen(false)}
             className="flex items-center gap-3 p-2.5 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] text-sm font-medium"
           >
             <Network className="w-4 h-4 text-purple-400" />
-            <span>Interactive Knowledge Graph</span>
+            <span>Knowledge Graph</span>
+          </Link>
+          <Link
+            to="/skills"
+            onClick={() => setMobileMenuOpen(false)}
+            className="flex items-center gap-3 p-2.5 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] text-sm font-medium"
+          >
+            <Cpu className="w-4 h-4 text-emerald-400" />
+            <span>Skill Explorer</span>
+          </Link>
+          <Link
+            to="/research"
+            onClick={() => setMobileMenuOpen(false)}
+            className="flex items-center gap-3 p-2.5 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] text-sm font-medium"
+          >
+            <BookOpen className="w-4 h-4 text-purple-400" />
+            <span>Research Papers</span>
+          </Link>
+          <Link
+            to="/resources"
+            onClick={() => setMobileMenuOpen(false)}
+            className="flex items-center gap-3 p-2.5 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] text-sm font-medium"
+          >
+            <Database className="w-4 h-4 text-rose-400" />
+            <span>Datasets & Labs</span>
+          </Link>
+          <Link
+            to="/faculty"
+            onClick={() => setMobileMenuOpen(false)}
+            className="flex items-center gap-3 p-2.5 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] text-sm font-medium"
+          >
+            <GraduationCap className="w-4 h-4 text-amber-400" />
+            <span>Faculty Mentors</span>
           </Link>
           <Link
             to="/collaborators"
             onClick={() => setMobileMenuOpen(false)}
             className="flex items-center gap-3 p-2.5 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] text-sm font-medium"
           >
-            <GraduationCap className="w-4 h-4 text-emerald-400" />
-            <span>Find Student & Faculty Mentors</span>
+            <UserIcon className="w-4 h-4 text-emerald-400" />
+            <span>Students Matchmaker</span>
           </Link>
+          <Link
+            to="/notifications"
+            onClick={() => setMobileMenuOpen(false)}
+            className="flex items-center gap-3 p-2.5 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] text-sm font-medium"
+          >
+            <Bell className="w-4 h-4 text-cyan-400" />
+            <span>Notifications ({unreadNotifications})</span>
+          </Link>
+          {user?.role === 'admin' && (
+            <Link
+              to="/admin"
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center gap-3 p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-sm font-semibold text-emerald-300"
+            >
+              <ShieldCheck className="w-4 h-4" />
+              <span>Admin Control Center</span>
+            </Link>
+          )}
           <Link
             to="/submit"
             onClick={() => setMobileMenuOpen(false)}
             className="flex items-center gap-3 p-2.5 rounded-xl bg-gradient-to-r from-primary-600/30 to-cyan-600/30 border border-primary-500/30 text-sm font-semibold text-white"
           >
             <PlusCircle className="w-4 h-4 text-cyan-300" />
-            <span>Publish New Capstone</span>
+            <span>Publish Capstone</span>
           </Link>
           
           <div className="pt-2 border-t border-white/10">

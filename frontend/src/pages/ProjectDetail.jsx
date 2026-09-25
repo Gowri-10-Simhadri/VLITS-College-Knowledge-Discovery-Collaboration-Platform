@@ -185,7 +185,7 @@ export default function ProjectDetail({ onOpenAuthModal }) {
 
           {/* Quick Action Buttons (GitHub, Demo, Wishlist, Compare) */}
           <div className="flex flex-wrap gap-2.5">
-            {project.githubLink && (
+            {project.githubLink && project.githubLink.startsWith('http') ? (
               <a
                 href={project.githubLink}
                 target="_blank"
@@ -193,11 +193,16 @@ export default function ProjectDetail({ onOpenAuthModal }) {
                 className="btn-glass flex-1 !py-2.5 text-xs font-semibold text-white"
               >
                 <Github className="w-4 h-4" />
-                <span>Source Code</span>
+                <span>View Source Code</span>
               </a>
+            ) : (
+              <div className="flex-1 px-3 py-2.5 rounded-xl bg-white/5 border border-white/10 text-xs font-medium text-slate-400 flex items-center justify-center gap-1.5 cursor-not-allowed">
+                <Github className="w-4 h-4 text-slate-500" />
+                <span>Source code not available</span>
+              </div>
             )}
 
-            {project.liveDemoLink && (
+            {project.liveDemoLink && project.liveDemoLink.startsWith('http') && (
               <a
                 href={project.liveDemoLink}
                 target="_blank"

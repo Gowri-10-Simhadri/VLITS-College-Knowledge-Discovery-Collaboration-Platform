@@ -41,6 +41,13 @@ export const protect = async (req, res, next) => {
   }
 };
 
+export const adminOnly = (req, res, next) => {
+  if (req.user && req.user.role === 'admin') {
+    return next();
+  }
+  return res.status(403).json({ message: 'Access denied: Admin privileges required.' });
+};
+
 export const optionalAuth = async (req, res, next) => {
   if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
     try {
@@ -54,3 +61,5 @@ export const optionalAuth = async (req, res, next) => {
   }
   next();
 };
+
+

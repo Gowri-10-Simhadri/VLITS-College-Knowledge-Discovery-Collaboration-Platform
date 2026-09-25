@@ -45,45 +45,63 @@ export const getDbStatus = () => ({
 async function seedAtlasIfEmpty() {
   try {
     const projectCount = await Project.countDocuments();
-    if (projectCount === 0) {
-      console.log(`🌱 [MongoDB Atlas] Database is empty. Seeding initial capstones, users & knowledge graph...`);
-      
-      // Seed Users
-      await User.deleteMany({});
-      await User.insertMany(sampleUsers);
-      console.log(`✓ Seeded ${sampleUsers.length} Users into Atlas`);
-
-      // Seed Skills
-      await Skill.deleteMany({});
-      await Skill.insertMany(sampleSkills);
-      console.log(`✓ Seeded ${sampleSkills.length} Skills into Atlas`);
-
-      // Seed Projects
-      await Project.deleteMany({});
-      await Project.insertMany(initialProjects);
-      console.log(`✓ Seeded ${initialProjects.length} Capstone Projects into Atlas`);
-
-      // Seed Knowledge Edges
-      const edges = generateEdgesFromProjects(initialProjects, sampleUsers);
-      await KnowledgeEdge.deleteMany({});
-      const formattedEdges = edges.map(e => ({
-        sourceType: e.sourceType,
-        sourceId: e.source,
-        sourceName: e.sourceName,
-        targetType: e.targetType,
-        targetId: e.target,
-        targetName: e.targetName,
-        relationship: e.relationship,
-        weight: 1.0
-      }));
-      await KnowledgeEdge.insertMany(formattedEdges);
-      console.log(`✓ Seeded ${formattedEdges.length} Knowledge Graph Edges into Atlas`);
-
-      console.log(`✨ [MongoDB Atlas] Database initialization and seeding complete!`);
-    } else {
-      console.log(`ℹ️ [MongoDB Atlas] Found ${projectCount} existing projects in Atlas cluster.`);
+    
+    // Ensure sample users exist in Atlas
+    for (const u of sampleUsers) {
+      const exists = await User.findById(u._id);
+      if (!exists) {
+        await User.create(u);
+      }
     }
+    console.log(`✓ Synchronized ${sampleUsers.length} Student & Faculty users with Atlas`);
+
+    // Ensure sample skills exist in Atlas
+    for (const sk of sampleSkills) {
+      const exists = await Skill.findOne({ name: sk.name });
+      if (!exists) {
+        await Skill.create({
+          _id: `skill_${sk.name.toLowerCase().replace(/\s+/g, '_')}`,
+          name: sk.name,
+          category: sk.category,
+          description: sk.description,
+          icon: sk.icon,
+          color: sk.color,
+          relatedTech: sk.relatedTech || []
+        });
+      }
+    }
+    console.log(`✓ Synchronized ${sampleSkills.length} Verified Skills with Atlas`);
+
+    // Ensure initial projects exist in Atlas
+    for (const p of initialProjects) {
+      const exists = await Project.findById(p._id);
+      if (!exists) {
+        await Project.create(p);
+      }
+    }
+    console.log(`✓ Synchronized ${initialProjects.length} Foundation Capstones with Atlas`);
+
+    // Re-generate Knowledge Edges
+    const allProjects = await Project.find({}).lean();
+    const allUsers = await User.find({}).lean();
+    const edges = generateEdgesFromProjects(allProjects, allUsers);
+    
+    await KnowledgeEdge.deleteMany({});
+    const formattedEdges = edges.map(e => ({
+      sourceType: e.sourceType,
+      sourceId: e.source,
+      sourceName: e.sourceName,
+      targetType: e.targetType,
+      targetId: e.target,
+      targetName: e.targetName,
+      relationship: e.relationship,
+      weight: 1.0
+    }));
+    await KnowledgeEdge.insertMany(formattedEdges);
+    console.log(`✓ Generated & Synchronized ${formattedEdges.length} Knowledge Graph Edges into Atlas`);
+
+    console.log(`✨ [MongoDB Atlas] College Knowledge Ecosystem is 100% active and synchronized!`);
   } catch (err) {
-    console.error(`⚠️ [MongoDB Atlas Seed Warning]:`, err.message);
+    console.error(`⚠️ [MongoDB Atlas Sync Warning]:`, err.message);
   }
 }

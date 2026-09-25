@@ -9,6 +9,11 @@ import projectRoutes from './routes/projectRoutes.js';
 import searchRoutes from './routes/searchRoutes.js';
 import graphRoutes from './routes/graphRoutes.js';
 import userRoutes from './routes/userRoutes.js';
+import collaborationRoutes from './routes/collaborationRoutes.js';
+import skillRoutes from './routes/skillRoutes.js';
+import researchRoutes from './routes/researchRoutes.js';
+import resourceRoutes from './routes/resourceRoutes.js';
+import adminRoutes from './routes/adminRoutes.js';
 
 dotenv.config();
 
@@ -91,6 +96,11 @@ app.use('/api/search', searchRoutes);
 app.use('/api/discover', searchRoutes);
 app.use('/api/graph', graphRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/collaborations', collaborationRoutes);
+app.use('/api/skills', skillRoutes);
+app.use('/api/research', researchRoutes);
+app.use('/api/resources', resourceRoutes);
+app.use('/api/admin', adminRoutes);
 
 // Serve Frontend Static Build
 const frontendDistPath = path.resolve(__dirname, '../frontend/dist');
