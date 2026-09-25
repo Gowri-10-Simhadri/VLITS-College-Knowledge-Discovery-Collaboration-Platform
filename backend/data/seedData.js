@@ -718,6 +718,491 @@ export const initialProjects = [
     isVerified: true,
     isFeatured: false,
     badge: "🤖 National Robotics Expo Best Design"
+  },
+  {
+    _id: "proj_09",
+    title: "AquaPure: Automated Real-Time River Water Quality Monitoring & Heavy Metal Detection",
+    tagline: "Spectrophotometric IoT buoy network mapping dissolved oxygen, lead, and industrial effluents",
+    description: "An autonomous solar-powered floating buoy network deployed in the Krishna River basin that measures turbidity, pH, dissolved oxygen, and heavy metal concentrations with real-time GSM/LoRa telemetry and predictive pollution dispersion modeling.",
+    detailedOverview: "Integrates multi-wavelength spectrophotometry with electrochemical sensors calibrated for industrial runoff detection. The edge microcontroller computes water quality index (WQI) scores locally and uploads georeferenced data to a centralized GIS dashboard for municipal pollution control authorities.",
+    domain: "Environmental Technology",
+    year: 2024,
+    batch: "2021-2025",
+    semester: "7th Semester Capstone",
+    techStack: ["ESP32-S3", "Spectrophotometry", "LoRaWAN", "FastAPI", "React", "PostGIS", "Leaflet", "Grafana"],
+    skillsRequired: ["IoT & Embedded C++", "Environmental Sensing", "GIS Mapping", "Data Science & Analytics"],
+    datasets: [
+      {
+        name: "Krishna River Basin Water Quality Time-Series Dataset",
+        source: "VLITS Environmental Engineering Field Station & AP Pollution Control Board",
+        size: "3.4 GB",
+        format: "CSV & NetCDF",
+        link: "https://huggingface.co/datasets/college-aquapure-water",
+        description: "Continuous 15-minute interval telemetry measuring pH, ORP, Turbidity, TDS, DO, and temperature across 12 sampling stations."
+      }
+    ],
+    researchPapers: [
+      {
+        title: "Autonomous LoRaWAN Buoy Mesh for In-Situ Heavy Metal Tracking in Agricultural Runoff",
+        authors: "Dr. B. Venkata Rao, K. Manasa, N. Kavitha",
+        conferenceJournal: "IEEE Sensors Journal",
+        year: 2024,
+        link: "https://ieeexplore.ieee.org/document/example-aquapure",
+        doi: "10.1109/JSEN.2024.103948"
+      }
+    ],
+    problemsFaced: [
+      {
+        problem: "Optical sensor windows suffered biofouling from algae within 5 days of submerged river deployment.",
+        solution: "Engineered a mechanical silicone wiper mechanism triggered every 2 hours and added a low-power ultraviolet UV-C sterilizing LED to prevent biofilm accumulation.",
+        approach: "Dual antifouling: mechanical wipe + UV-C photodegradation.",
+        tags: ["Biofouling", "Sensor Calibration", "Embedded Hardware"]
+      }
+    ],
+    lessonsLearned: "Waterproof enclosure seals must be IP68 rated with marine-grade stainless steel hardware. Battery capacity must account for prolonged monsoon overcast periods.",
+    futureImprovements: "Incorporate autonomous sample collection chambers triggered when heavy metal threshold spikes occur.",
+    teamMembers: [
+      {
+        name: "K. Manasa",
+        role: "Lead Environmental Engineer & GIS Analyst",
+        email: "manasa.k@college.edu",
+        batch: "2021-2025",
+        avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&auto=format&fit=crop&q=80"
+      },
+      {
+        name: "N. Kavitha",
+        role: "Chemical Sensor Specialist",
+        email: "kavitha.n@college.edu",
+        batch: "2021-2025",
+        avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&auto=format&fit=crop&q=80"
+      }
+    ],
+    facultySupervisor: {
+      name: "Dr. B. Venkata Rao",
+      department: "Civil & Environmental Engineering",
+      designation: "Professor & Water Resources Research Lead",
+      email: "b.venkatarao@college.edu"
+    },
+    githubLink: "https://github.com/college-env/aquapure-iot",
+    liveDemoLink: "https://aquapure.college.edu",
+    reportDocLink: "https://docs.college.edu/capstone/2024/aquapure.pdf",
+    presentationLink: "https://slides.college.edu/2024/aquapure.pdf",
+    thumbnail: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&auto=format&fit=crop&q=80",
+    screenshots: [
+      "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&auto=format&fit=crop&q=80"
+    ],
+    views: 890,
+    bookmarksCount: 54,
+    likesCount: 160,
+    rating: { average: 4.8, count: 15 },
+    reviews: [],
+    status: "Completed",
+    isVerified: true,
+    isFeatured: false,
+    badge: "🌿 Green Tech Innovation Award"
+  },
+  {
+    _id: "proj_10",
+    title: "SolarTrack: AI-Driven Dual-Axis Photovoltaic MPPT Optimizer with Micro-Inverter Telemetry",
+    tagline: "Maximizing clean solar energy generation with astronomical positioning and real-time cloud shadow prediction",
+    description: "An intelligent dual-axis solar tracking system combining astronomical solar ephemeris algorithms with sky-facing wide-angle cameras to predict moving cloud shadows and maximize Maximum Power Point Tracking (MPPT) efficiency on college rooftop arrays.",
+    detailedOverview: "Installed on the VLITS Admin Block solar terrace. Uses hybrid stepper motors controlled by an ESP32-S3 microcontroller. Replaces standard flat solar panels with dynamic orienting trackers that achieve 38.4% higher cumulative daily energy harvest compared to static panels.",
+    domain: "Renewable Energy & IoT",
+    year: 2023,
+    batch: "2020-2024",
+    semester: "8th Semester Capstone",
+    techStack: ["ESP32-S3", "C++", "FreeRTOS", "Modbus-RTU", "MQTT", "Python", "InfluxDB", "Grafana"],
+    skillsRequired: ["IoT & Embedded C++", "Power Systems", "Control Systems", "Time Series Forecasting"],
+    datasets: [
+      {
+        name: "VLITS Rooftop Solar Irradiance & Inverter Telemetry Dataset",
+        source: "VLITS Clean Energy & Smart Campus Microgrid Center",
+        size: "4.8 GB",
+        format: "Parquet & CSV",
+        link: "https://huggingface.co/datasets/college-solar-mppt",
+        description: "1-second resolution metrics for Direct Normal Irradiance (DNI), panel tilt angles, ambient temperature, DC voltage, and AC grid power."
+      }
+    ],
+    researchPapers: [
+      {
+        title: "Adaptive Sky Imager Optical Flow for High-Yield Dual-Axis Photovoltaic Tracking",
+        authors: "Dr. P. Rajan, V. Akhil Kumar, S. Teja",
+        conferenceJournal: "IEEE Transactions on Sustainable Energy",
+        year: 2023,
+        link: "https://ieeexplore.ieee.org/document/example-solartrack",
+        doi: "10.1109/TSTE.2023.109823"
+      }
+    ],
+    problemsFaced: [
+      {
+        problem: "Strong gust winds during storms created excessive mechanical torque on the tracker azimuth gearboxes.",
+        solution: "Implemented an emergency anemometer sensor threshold that automatically flattens all trackers into a zero-drag storm horizontal survival position when wind speeds exceed 45 km/h.",
+        approach: "Automatic wind gust stow routine in FreeRTOS high-priority interrupt task.",
+        tags: ["Wind Stow", "Safety Interlocks", "Mechanical Protection"]
+      }
+    ],
+    lessonsLearned: "Solar tracking hardware must incorporate hardware endstops and optical limit sensors to prevent cable wrap-around failures during continuous 360-degree rotations.",
+    futureImprovements: "Integrate lithium iron phosphate (LiFePO4) localized battery state-of-charge predictions to dynamically schedule peak inverter exports.",
+    teamMembers: [
+      {
+        name: "V. Akhil Kumar",
+        role: "Power Electronics & Motor Control Lead",
+        email: "akhil.v@college.edu",
+        batch: "2020-2024",
+        avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80"
+      }
+    ],
+    facultySupervisor: {
+      name: "Dr. P. Rajan",
+      department: "Electrical & Electronics Engineering",
+      designation: "Professor & Director of Energy Center",
+      email: "p.rajan@college.edu"
+    },
+    githubLink: "https://github.com/college-energy/solartrack-mppt",
+    liveDemoLink: "https://solartrack.college.edu",
+    reportDocLink: "https://docs.college.edu/capstone/2023/solartrack.pdf",
+    presentationLink: "https://slides.college.edu/2023/solartrack.pdf",
+    thumbnail: "https://images.unsplash.com/photo-1509391365360-2e959784a276?w=800&auto=format&fit=crop&q=80",
+    screenshots: [
+      "https://images.unsplash.com/photo-1509391365360-2e959784a276?w=800&auto=format&fit=crop&q=80"
+    ],
+    views: 1100,
+    bookmarksCount: 68,
+    likesCount: 195,
+    rating: { average: 4.9, count: 20 },
+    reviews: [],
+    status: "Completed",
+    isVerified: true,
+    isFeatured: true,
+    badge: "⚡ Sustainable Engineering Award"
+  },
+  {
+    _id: "proj_11",
+    title: "AeroScan: Concrete Infrastructure Crack & Spalling Detection with UAV Photogrammetry",
+    tagline: "Drone computer vision pipeline generating millimeter-accurate 3D digital twins and crack severity heatmaps",
+    description: "An automated aerial structural health inspection system for highway bridges, dams, and multi-story campus buildings that captures high-resolution imagery and deploys segmentation neural networks to detect hairline concrete cracks down to 0.2mm width.",
+    detailedOverview: "Utilizes automated waypoint flight planning around complex structures. Captured images are stitched into high-density 3D point clouds via Structure-from-Motion (SfM). A fine-tuned SegFormer network segments cracks, calculates length and width distributions, and flags structural failure risks for civil audit teams.",
+    domain: "Computer Vision & Infrastructure",
+    year: 2024,
+    batch: "2020-2024",
+    semester: "8th Semester Capstone",
+    techStack: ["PyTorch", "SegFormer", "Open3D", "DJI SDK", "Python", "React", "Three.js", "Docker"],
+    skillsRequired: ["Computer Vision", "3D Reconstruction", "Deep Learning", "Structural Health", "Photogrammetry"],
+    datasets: [
+      {
+        name: "VLITS Reinforced Concrete Structural Crack Dataset",
+        source: "College Campus Buildings & NH-16 Highway Flyover Inspections",
+        size: "18.6 GB",
+        format: "PNG Mask & GeoTIFF",
+        link: "https://huggingface.co/datasets/college-concrete-crack",
+        description: "12,000 sub-millimeter annotated crack, spalling, and rebar corrosion images across varied surface textures."
+      }
+    ],
+    researchPapers: [
+      {
+        title: "Millimeter-Precision Concrete Crack Quantification Using UAV Close-Range Photogrammetry and Transformer Segmentation",
+        authors: "Dr. B. Venkata Rao, Gowri Simhadri, K. Manasa",
+        conferenceJournal: "Elsevier Automation in Construction",
+        year: 2024,
+        link: "https://doi.org/10.1016/j.autcon.2024.105281",
+        doi: "10.1016/j.autcon.2024.105281"
+      }
+    ],
+    problemsFaced: [
+      {
+        problem: "GPS signal loss under concrete bridge decks caused the drone to drift unpredictably during close inspection runs.",
+        solution: "Integrated downward-facing optical flow cameras and dual ultrasonic rangefinders to enable autonomous GPS-denied position holding.",
+        approach: "Visual-inertial odometry fallback with Kalman filtering.",
+        tags: ["GPS-Denied", "Drone Navigation", "Optical Flow"]
+      }
+    ],
+    lessonsLearned: "Lighting variations and shadows cast by bridge girders severely affect crack segmentation; training on synthetic shadow-augmented datasets is mandatory.",
+    futureImprovements: "Equip UAVs with ground penetrating radar (GPR) payloads to detect subsurface voids beneath asphalt layers.",
+    teamMembers: [
+      {
+        name: "Gowri Simhadri",
+        role: "Lead Vision AI & 3D Reconstruction Architect",
+        email: "gowri@college.edu",
+        batch: "2020-2024",
+        avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80"
+      },
+      {
+        name: "K. Manasa",
+        role: "Civil Structural Health Analyst",
+        email: "manasa.k@college.edu",
+        batch: "2021-2025",
+        avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&auto=format&fit=crop&q=80"
+      }
+    ],
+    facultySupervisor: {
+      name: "Dr. B. Venkata Rao",
+      department: "Civil & Environmental Engineering",
+      designation: "Professor & Head of Structural Health Lab",
+      email: "b.venkatarao@college.edu"
+    },
+    githubLink: "https://github.com/college-vision/aeroscan-crack-ai",
+    liveDemoLink: "https://aeroscan.college.edu",
+    reportDocLink: "https://docs.college.edu/capstone/2024/aeroscan.pdf",
+    presentationLink: "https://slides.college.edu/2024/aeroscan.pdf",
+    thumbnail: "https://images.unsplash.com/photo-1541888946425-d0fbb18f15f6?w=800&auto=format&fit=crop&q=80",
+    screenshots: [
+      "https://images.unsplash.com/photo-1541888946425-d0fbb18f15f6?w=800&auto=format&fit=crop&q=80"
+    ],
+    views: 1340,
+    bookmarksCount: 92,
+    likesCount: 240,
+    rating: { average: 5.0, count: 28 },
+    reviews: [],
+    status: "Completed",
+    isVerified: true,
+    isFeatured: true,
+    badge: "🏗️ Smart Infrastructure Excellence Award"
+  },
+  {
+    _id: "proj_12",
+    title: "SignBridge: Real-Time Dual-Hand Sign Language Translator via Sensor Fusion & Spatial Graph CNNs",
+    tagline: "Wearable sensory glove and edge camera pipeline converting Indian Sign Language into natural spoken speech",
+    description: "An assistive communication glove system combining 10-axis flex sensors, IMUs, and vision keypoint tracking to interpret complex continuous Indian Sign Language (ISL) gestures into audible synthesized speech and text in real-time.",
+    detailedOverview: "Designed to bridge communication barriers for deaf and hard-of-hearing students. Uses Spatial-Temporal Graph Convolutional Networks (ST-GCN) trained on hand skeleton coordinate streams. Latency from physical gesture completion to audible voice synthesis is under 180ms on an embedded smartphone.",
+    domain: "Assistive Technology & AI",
+    year: 2024,
+    batch: "2021-2025",
+    semester: "7th Semester Capstone",
+    techStack: ["ESP32-S3", "Bluetooth BLE", "MediaPipe", "PyTorch", "ST-GCN", "Flutter", "Text-to-Speech"],
+    skillsRequired: ["Embedded Systems", "Computer Vision", "Deep Learning", "Signal Processing", "Mobile App Dev"],
+    datasets: [
+      {
+        name: "Indian Sign Language Continuous Gesture Kinematic Dataset",
+        source: "VLITS Assistive Technology Lab & Guntur Deaf Community Volunteers",
+        size: "9.2 GB",
+        format: "HDF5 & JSON Coordinate Streams",
+        link: "https://huggingface.co/datasets/college-signbridge-isl",
+        description: "50,000 multi-signer hand skeleton joint positions and IMU orientation logs covering 450 common Indian Sign Language vocabulary terms."
+      }
+    ],
+    researchPapers: [
+      {
+        title: "Multimodal Sensor-Vision Fusion for Continuous Indian Sign Language Translation on Edge Devices",
+        authors: "Dr. Ramesh Kumar, B. Sai Charan, Gowri Simhadri",
+        conferenceJournal: "IEEE Transactions on Neural Systems and Rehabilitation Engineering",
+        year: 2024,
+        link: "https://ieeexplore.ieee.org/document/example-signbridge",
+        doi: "10.1109/TNSRE.2024.108234"
+      }
+    ],
+    problemsFaced: [
+      {
+        problem: "Flex sensor readings drifted over extended wearing sessions due to temperature rise and fabric stretch.",
+        solution: "Implemented an auto-zero dynamic baseline calibration routine whenever the hand passes through an open-palm resting pose.",
+        approach: "Dynamic baseline subtraction algorithm running on the ESP32 microcontroller.",
+        tags: ["Sensor Drift", "Calibration", "Wearable Tech"]
+      }
+    ],
+    lessonsLearned: "Hand morphology differs significantly between individuals; user-specific 60-second few-shot calibration increases gesture recognition accuracy from 82% to 98.4%.",
+    futureImprovements: "Incorporate facial expression tracking via front camera to interpret emotional tonality and punctuation.",
+    teamMembers: [
+      {
+        name: "B. Sai Charan",
+        role: "Embedded Hardware & Sensor Glove Lead",
+        email: "saicharan.b@college.edu",
+        batch: "2021-2025",
+        avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&auto=format&fit=crop&q=80"
+      },
+      {
+        name: "Gowri Simhadri",
+        role: "Deep Learning & ST-GCN Architecture",
+        email: "gowri@college.edu",
+        batch: "2020-2024",
+        avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80"
+      }
+    ],
+    facultySupervisor: {
+      name: "Dr. Ramesh Kumar",
+      department: "Computer Science & Engineering",
+      designation: "Professor & Vision AI Lab Head",
+      email: "ramesh.kumar@college.edu"
+    },
+    githubLink: "https://github.com/college-assist/signbridge-isl",
+    liveDemoLink: "https://signbridge.college.edu",
+    reportDocLink: "https://docs.college.edu/capstone/2024/signbridge.pdf",
+    presentationLink: "https://slides.college.edu/2024/signbridge.pdf",
+    thumbnail: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&auto=format&fit=crop&q=80",
+    screenshots: [
+      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&auto=format&fit=crop&q=80"
+    ],
+    views: 1480,
+    bookmarksCount: 110,
+    likesCount: 290,
+    rating: { average: 5.0, count: 32 },
+    reviews: [],
+    status: "Completed",
+    isVerified: true,
+    isFeatured: true,
+    badge: "🥇 IEEE Humanitarian Technology Best Project"
+  },
+  {
+    _id: "proj_13",
+    title: "MedLocker: Decentralized Zero-Knowledge Patient Health Record Protocol with IPFS Storage",
+    tagline: "Cryptographically verifiable EHR access control giving patients complete sovereignty over medical data",
+    description: "A decentralized electronic health record (EHR) management protocol built on Ethereum smart contracts and IPFS encrypted shards, allowing patients to grant timed, selective zero-knowledge access proofs to hospitals and diagnostic laboratories without exposing full medical histories.",
+    detailedOverview: "Eliminates single points of failure in centralized hospital database breaches. Patient MRI, CT, and genomic data are encrypted using AES-256 GCM client-side and distributed across an IPFS pin cluster. Smart contract access control lists enforce consent delegation and auto-expiring doctor access tokens.",
+    domain: "Blockchain & Cybersecurity",
+    year: 2024,
+    batch: "2020-2024",
+    semester: "8th Semester Capstone",
+    techStack: ["Solidity", "Hardhat", "Polygon zkEVM", "IPFS", "Ethers.js", "React", "Node.js", "Circom"],
+    skillsRequired: ["Smart Contracts & Solidity", "Zero-Knowledge Proofs", "Cryptography", "Full Stack Web"],
+    datasets: [
+      {
+        name: "Synthetic FHIR Compliant Electronic Health Record Benchmark Dataset",
+        source: "MIMIC-IV Derived & VLITS Medical Informatics Group",
+        size: "5.6 GB",
+        format: "JSON & DICOM",
+        link: "https://huggingface.co/datasets/college-medlocker-ehr",
+        description: "Anonymized diagnostic reports, prescription chains, and radiological scans formatted to HL7/FHIR standards."
+      }
+    ],
+    researchPapers: [
+      {
+        title: "zk-EHR: Zero-Knowledge Access Delegation Architecture for Decentralized Medical Records",
+        authors: "Dr. S. Manikandan, D. Harika, Karthik Rajan",
+        conferenceJournal: "ACM Transactions on Privacy and Security",
+        year: 2024,
+        link: "https://dl.acm.org/doi/example-medlocker",
+        doi: "10.1145/3628491"
+      }
+    ],
+    problemsFaced: [
+      {
+        problem: "Gas fees on Ethereum mainnet were prohibitively expensive for frequent access permissions.",
+        solution: "Migrated the smart contracts to Polygon zkEVM Layer-2 rollup and implemented EIP-712 meta-transactions to enable gasless patient signatures.",
+        approach: "Layer-2 zk-Rollup deployment with relayer subsidized gas sponsorship.",
+        tags: ["Layer-2", "zk-Rollups", "Gas Optimization"]
+      }
+    ],
+    lessonsLearned: "Healthcare compliance requires strict patient-revocation mechanisms; asymmetric proxy re-encryption ensures revoked clinics cannot decrypt cached IPFS blocks.",
+    futureImprovements: "Implement zero-knowledge clinical trial recruitment matching where pharmaceutical researchers query medical eligibility without learning patient identities.",
+    teamMembers: [
+      {
+        name: "D. Harika",
+        role: "Zero-Knowledge Cryptography & Smart Contract Architect",
+        email: "harika.d@college.edu",
+        batch: "2020-2024",
+        avatar: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150&auto=format&fit=crop&q=80"
+      },
+      {
+        name: "Karthik Rajan",
+        role: "Web3 Full Stack Developer",
+        email: "karthik.r@college.edu",
+        batch: "2020-2024",
+        avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&auto=format&fit=crop&q=80"
+      }
+    ],
+    facultySupervisor: {
+      name: "Dr. S. Manikandan",
+      department: "Information Technology",
+      designation: "Associate Professor & Cybersecurity Lead",
+      email: "s.manikandan@college.edu"
+    },
+    githubLink: "https://github.com/college-crypto/medlocker-zk",
+    liveDemoLink: "https://medlocker.college.edu",
+    reportDocLink: "https://docs.college.edu/capstone/2024/medlocker.pdf",
+    presentationLink: "https://slides.college.edu/2024/medlocker.pdf",
+    thumbnail: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&auto=format&fit=crop&q=80",
+    screenshots: [
+      "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&auto=format&fit=crop&q=80"
+    ],
+    views: 1190,
+    bookmarksCount: 76,
+    likesCount: 220,
+    rating: { average: 4.9, count: 22 },
+    reviews: [],
+    status: "Completed",
+    isVerified: true,
+    isFeatured: false,
+    badge: "🔐 Web3 Healthcare Security Winner"
+  },
+  {
+    _id: "proj_14",
+    title: "DeepFakeShield: Temporal Inconsistency & Audio-Visual Sync Pipeline for Multimodal Forgery Detection",
+    tagline: "Neural defense system detecting deepfake video face-swaps and voice-cloning artifacts with forensic heatmaps",
+    description: "A digital forensics system that analyzes suspect video and audio media streams to detect synthetic generative manipulations, facial warping artifacts, and audio-phoneme lip synchronization mismatches with 97.6% accuracy.",
+    detailedOverview: "Engineered in response to growing digital impersonation threats. Combines 3D Spatio-Temporal ResNet models analyzing biological micro-signals (sub-surface blood volume pulse changes) with Wav2Vec phoneme alignment networks to expose manipulated deepfakes.",
+    domain: "AI Security & Deep Learning",
+    year: 2024,
+    batch: "2021-2025",
+    semester: "7th Semester Capstone",
+    techStack: ["PyTorch", "OpenCV", "Wav2Vec 2.0", "FastAPI", "React", "Docker", "ONNX Runtime"],
+    skillsRequired: ["Computer Vision", "Deep Learning", "Audio Signal Processing", "Cybersecurity"],
+    datasets: [
+      {
+        name: "FaceForensics++ & DeepFake Detection Challenge (DFDC) Benchmark Corpus",
+        source: "Kaggle DFDC & VLITS AI Security Research Group",
+        size: "35.2 GB",
+        format: "MP4 & WAV",
+        link: "https://huggingface.co/datasets/college-deepfakeshield",
+        description: "100,000 pristine and manipulated video sequences generated via DeepFaceLab, Face2Face, NeuralTextures, and ElevenLabs voice cloning."
+      }
+    ],
+    researchPapers: [
+      {
+        title: "Spatial-Temporal Blood Flow Pulse Verification for Real-Time Facial Deepfake Forensics",
+        authors: "Dr. M. Srinivasa Rao, R. Sandeep, Gowri Simhadri",
+        conferenceJournal: "IEEE Transactions on Information Forensics and Security",
+        year: 2024,
+        link: "https://ieeexplore.ieee.org/document/example-deepfakeshield",
+        doi: "10.1109/TIFS.2024.104928"
+      }
+    ],
+    problemsFaced: [
+      {
+        problem: "Heavy social media video compression (WhatsApp/YouTube) destroyed high-frequency noise forensic traces.",
+        solution: "Trained the neural network with heavy JPEG/H.264 compression augmentation and added cross-modal audio-visual lip sync checks which remain resilient against compression.",
+        approach: "Cross-modal sync alignment + compression-robust data augmentation.",
+        tags: ["Compression Robustness", "Audio-Visual Sync", "Forensics"]
+      }
+    ],
+    lessonsLearned: "Generative AI tools evolve rapidly; zero-shot anomaly detection on biological signals is much more robust over time than training strictly on specific deepfake generator signatures.",
+    futureImprovements: "Deploy as an automated real-time browser extension verifying incoming Zoom and Google Meet video streams.",
+    teamMembers: [
+      {
+        name: "R. Sandeep",
+        role: "Lead Deep Learning & Audio Forensics Architect",
+        email: "sandeep.r@college.edu",
+        batch: "2020-2024",
+        avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&auto=format&fit=crop&q=80"
+      },
+      {
+        name: "Gowri Simhadri",
+        role: "Vision Pipeline & Model Optimization",
+        email: "gowri@college.edu",
+        batch: "2020-2024",
+        avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80"
+      }
+    ],
+    facultySupervisor: {
+      name: "Dr. M. Srinivasa Rao",
+      department: "Artificial Intelligence & Data Science",
+      designation: "Professor & Head of AI Research Group",
+      email: "m.srinivasarao@college.edu"
+    },
+    githubLink: "https://github.com/college-ai/deepfakeshield-forensics",
+    liveDemoLink: "https://deepfakeshield.college.edu",
+    reportDocLink: "https://docs.college.edu/capstone/2024/deepfakeshield.pdf",
+    presentationLink: "https://slides.college.edu/2024/deepfakeshield.pdf",
+    thumbnail: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=800&auto=format&fit=crop&q=80",
+    screenshots: [
+      "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=800&auto=format&fit=crop&q=80"
+    ],
+    views: 1620,
+    bookmarksCount: 124,
+    likesCount: 310,
+    rating: { average: 5.0, count: 36 },
+    reviews: [],
+    status: "Completed",
+    isVerified: true,
+    isFeatured: true,
+    badge: "🛡️ Cyber Defense National First Prize"
   }
 ];
 
@@ -904,6 +1389,130 @@ export const sampleUsers = [
     recentlyViewed: ["proj_08", "proj_01"],
     rating: { average: 4.9, count: 19 }
   },
+  {
+    _id: "user_08",
+    name: "K. Manasa",
+    email: "manasa.k@college.edu",
+    password: "$2a$10$YourHashedPasswordHereOrAutoBcrypt",
+    role: "student",
+    batch: "2021-2025",
+    branch: "Civil & Environmental Engineering",
+    department: "Civil",
+    avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&auto=format&fit=crop&q=80",
+    bio: "Civil engineer specializing in drone photogrammetry 3D point-cloud inspection, structural crack segmentation, and river water quality GIS modeling.",
+    headline: "Drone Photogrammetry & Structural Health Lead | Civil 4th Year",
+    skills: [
+      { name: "Photogrammetry", level: "Expert", endorsements: 26 },
+      { name: "Computer Vision", level: "Advanced", endorsements: 22 },
+      { name: "GIS Mapping", level: "Expert", endorsements: 28 },
+      { name: "Open3D", level: "Advanced", endorsements: 18 }
+    ],
+    interests: ["Digital Twins", "Infrastructure Health", "Drone Surveys", "Remote Sensing"],
+    github: "https://github.com/manasa-civil",
+    linkedin: "https://linkedin.com/in/manasa-k-civil",
+    bookmarks: ["proj_09", "proj_11"],
+    recentlyViewed: ["proj_09", "proj_11"],
+    rating: { average: 5.0, count: 20 }
+  },
+  {
+    _id: "user_09",
+    name: "V. Akhil Kumar",
+    email: "akhil.v@college.edu",
+    password: "$2a$10$YourHashedPasswordHereOrAutoBcrypt",
+    role: "student",
+    batch: "2020-2024",
+    branch: "Electrical & Electronics Engineering",
+    department: "EEE",
+    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80",
+    bio: "Power electronics hardware designer focusing on maximum power point tracking (MPPT), microgrid telemetry, and solar battery storage management.",
+    headline: "Power Electronics & Solar Inverter Engineer | EEE Alum",
+    skills: [
+      { name: "IoT & Embedded C++", level: "Expert", endorsements: 27 },
+      { name: "Power Systems", level: "Expert", endorsements: 31 },
+      { name: "Time Series Forecasting", level: "Advanced", endorsements: 19 },
+      { name: "FreeRTOS", level: "Advanced", endorsements: 22 }
+    ],
+    interests: ["Smart Solar Inverters", "Grid Integration", "Battery Degradation", "Embedded Firmware"],
+    github: "https://github.com/akhil-solar",
+    linkedin: "https://linkedin.com/in/akhil-kumar-eee",
+    bookmarks: ["proj_10", "proj_06"],
+    recentlyViewed: ["proj_10"],
+    rating: { average: 4.9, count: 24 }
+  },
+  {
+    _id: "user_10",
+    name: "N. Kavitha",
+    email: "kavitha.n@college.edu",
+    password: "$2a$10$YourHashedPasswordHereOrAutoBcrypt",
+    role: "student",
+    batch: "2021-2025",
+    branch: "Biotechnology & Environmental Engineering",
+    department: "Biotech",
+    avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&auto=format&fit=crop&q=80",
+    bio: "Environmental biosensing researcher working on spectrophotometric detection of heavy metal contaminants in water reservoirs.",
+    headline: "Environmental Bio-Sensors Researcher | Biotech Final Year",
+    skills: [
+      { name: "Environmental Sensing", level: "Expert", endorsements: 25 },
+      { name: "Spectrophotometry", level: "Expert", endorsements: 22 },
+      { name: "Data Science & Analytics", level: "Advanced", endorsements: 18 }
+    ],
+    interests: ["Water Sanitation", "Biofouling Prevention", "Spectrophotometric Analysis", "IoT Buoys"],
+    github: "https://github.com/kavitha-biotech",
+    linkedin: "https://linkedin.com/in/kavitha-n-bio",
+    bookmarks: ["proj_09"],
+    recentlyViewed: ["proj_09"],
+    rating: { average: 4.8, count: 15 }
+  },
+  {
+    _id: "user_11",
+    name: "B. Sai Charan",
+    email: "saicharan.b@college.edu",
+    password: "$2a$10$YourHashedPasswordHereOrAutoBcrypt",
+    role: "student",
+    batch: "2021-2025",
+    branch: "Electronics & Communication Engineering",
+    department: "ECE",
+    avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&auto=format&fit=crop&q=80",
+    bio: "Assistive technology engineer designing wearable sensory gloves, flex sensor baseline calibration, and low-latency Bluetooth BLE telemetry.",
+    headline: "Wearables & Signal Processing Lead | ECE 4th Year",
+    skills: [
+      { name: "IoT & Embedded C++", level: "Expert", endorsements: 30 },
+      { name: "Signal Processing", level: "Advanced", endorsements: 24 },
+      { name: "Flutter", level: "Advanced", endorsements: 20 },
+      { name: "Computer Vision", level: "Intermediate", endorsements: 16 }
+    ],
+    interests: ["Assistive Hardware", "Sensory Gloves", "Human-Computer Interaction", "TinyML"],
+    github: "https://github.com/saicharan-wearables",
+    linkedin: "https://linkedin.com/in/saicharan-b-ece",
+    bookmarks: ["proj_12"],
+    recentlyViewed: ["proj_12", "proj_01"],
+    rating: { average: 5.0, count: 22 }
+  },
+  {
+    _id: "user_12",
+    name: "D. Harika",
+    email: "harika.d@college.edu",
+    password: "$2a$10$YourHashedPasswordHereOrAutoBcrypt",
+    role: "student",
+    batch: "2020-2024",
+    branch: "Information Technology",
+    department: "IT",
+    avatar: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150&auto=format&fit=crop&q=80",
+    bio: "Zero-knowledge cryptography researcher developing Circom circuits, Polygon zkEVM smart contracts, and decentralized health privacy protocols.",
+    headline: "Zero-Knowledge Cryptographer & Smart Contract Dev | IT Alum",
+    skills: [
+      { name: "Smart Contracts & Solidity", level: "Expert", endorsements: 34 },
+      { name: "Zero-Knowledge Proofs", level: "Expert", endorsements: 29 },
+      { name: "Cryptography", level: "Advanced", endorsements: 26 },
+      { name: "React.js", level: "Advanced", endorsements: 21 }
+    ],
+    interests: ["zk-SNARKs", "Decentralized Medical Privacy", "IPFS Storage", "EIP Standards"],
+    github: "https://github.com/harika-zk",
+    linkedin: "https://linkedin.com/in/harika-d-web3",
+    bookmarks: ["proj_13", "proj_04"],
+    recentlyViewed: ["proj_13"],
+    rating: { average: 4.9, count: 28 }
+  },
 
   // FACULTY MEMBERS
   {
@@ -1055,6 +1664,55 @@ export const sampleUsers = [
     bookmarks: ["proj_06"],
     recentlyViewed: ["proj_06"],
     rating: { average: 4.8, count: 38 }
+  },
+  {
+    _id: "user_faculty_07",
+    name: "Dr. N. Chandrasekhar",
+    email: "n.chandrasekhar@college.edu",
+    password: "$2a$10$YourHashedPasswordHereOrAutoBcrypt",
+    role: "faculty",
+    batch: "Faculty Mentor",
+    branch: "Mechanical Engineering",
+    department: "Mechanical",
+    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80",
+    bio: "Professor & Robotics Center Coordinator. Specializing in autonomous mobile robots, ROS 2 navigation stacks, and industrial AGV manufacturing.",
+    headline: "Professor & Robotics Center Coordinator",
+    skills: [
+      { name: "Robotics & ROS 2", level: "Expert", endorsements: 96 },
+      { name: "SLAM Navigation", level: "Expert", endorsements: 91 },
+      { name: "IoT & Embedded C++", level: "Expert", endorsements: 85 }
+    ],
+    interests: ["Autonomous Mobile Robots", "ROS 2 Navigation", "LiDAR Point Clouds", "Industrial Robotics"],
+    github: "https://github.com/dr-chandrasekhar-mech",
+    linkedin: "https://linkedin.com/in/dr-n-chandrasekhar",
+    bookmarks: ["proj_08"],
+    recentlyViewed: ["proj_08"],
+    rating: { average: 4.9, count: 42 }
+  },
+  {
+    _id: "user_faculty_08",
+    name: "Dr. B. Venkata Rao",
+    email: "b.venkatarao@college.edu",
+    password: "$2a$10$YourHashedPasswordHereOrAutoBcrypt",
+    role: "faculty",
+    batch: "Faculty Mentor",
+    branch: "Civil & Environmental Engineering",
+    department: "Civil",
+    avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&auto=format&fit=crop&q=80",
+    bio: "Professor & Head of Structural Health & Water Resources Research Lab. Directing drone photogrammetry and automated water quality buoy monitoring programs.",
+    headline: "Professor & Head of Structural Health Lab",
+    skills: [
+      { name: "Photogrammetry", level: "Expert", endorsements: 92 },
+      { name: "Environmental Sensing", level: "Expert", endorsements: 89 },
+      { name: "GIS Mapping", level: "Expert", endorsements: 94 },
+      { name: "Computer Vision", level: "Advanced", endorsements: 80 }
+    ],
+    interests: ["Bridge Inspection Drones", "Water Pollution Modeling", "3D Digital Twins", "Remote Sensing"],
+    github: "https://github.com/dr-venkatarao-civil",
+    linkedin: "https://linkedin.com/in/dr-b-venkatarao",
+    bookmarks: ["proj_09", "proj_11"],
+    recentlyViewed: ["proj_09", "proj_11"],
+    rating: { average: 5.0, count: 46 }
   },
 
   // ADMIN USER
